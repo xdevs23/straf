@@ -56,14 +56,10 @@ func ConvertStruct(objectType reflect.Type) graphql.Fields {
 	return fields
 }
 
-func GetFieldType(object reflect.StructField) graphql.Output {
-	return *GetFieldTypePtr(object)
-}
-
-var fieldTypeCache = map[string]*graphql.Output{}
+var fieldTypeCache = map[string]graphql.Output{}
 
 // GetFieldType Converts object to a graphQL field type
-func GetFieldTypePtr(object reflect.StructField) *graphql.Output {
+func GetFieldType(object reflect.StructField) graphql.Output {
 	cachedOutput := fieldTypeCache[object.Name]
 	if cachedOutput != nil {
 		return cachedOutput
@@ -91,8 +87,8 @@ func GetFieldTypePtr(object reflect.StructField) *graphql.Output {
 
 	output, _ := ConvertSimpleType(objectType)
 	
-	cachedOutput[object.Name] = &output
-	return &output
+	cachedOutput[object.Name] = output
+	return output
 }
 
 // ConvertSimpleType converts simple type  to graphql field
