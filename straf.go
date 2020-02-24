@@ -10,7 +10,7 @@ import (
 // GetGraphQLObject Converts struct into graphql object
 func GetGraphQLObject(object interface{}) (*graphql.Object, error) {
 	objectType := reflect.TypeOf(object)
-	fields := convertStruct(objectType)
+	fields := ConvertStruct(objectType)
 
 	output := graphql.NewObject(
 		graphql.ObjectConfig{
