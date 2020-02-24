@@ -87,7 +87,7 @@ func GetFieldType(object reflect.StructField) graphql.Output {
 
 	output, _ := ConvertSimpleType(objectType)
 	
-	cachedOutput[object.Name] = output
+	fieldTypeCache[object.Name] = output
 	return output
 }
 
