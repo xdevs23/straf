@@ -26,7 +26,7 @@ func GetGraphQLObject(object interface{}) (*graphql.Object, error) {
 func ConvertStructToObject(
 	objectType reflect.Type) *graphql.Object {
 
-	fields := convertStruct(objectType)
+	fields := ConvertStruct(objectType)
 
 	return graphql.NewObject(
 		graphql.ObjectConfig{
@@ -42,13 +42,13 @@ func ConvertStruct(objectType reflect.Type) graphql.Fields {
 
 	for i := 0; i < objectType.NumField(); i++ {
 		currentField := objectType.Field(i)
-		fieldType := getFieldType(currentField)
-		if getTagValue(currentField, "exclude") != "true" {
+		fieldType := GetFieldType(currentField)
+		if GetTagValue(currentField, "exclude") != "true" {
 			fields[currentField.Name] = &graphql.Field{
 				Name:              currentField.Name,
 				Type:              fieldType,
-				DeprecationReason: getTagValue(currentField, "deprecationReason"),
-				Description:       getTagValue(currentField, "description"),
+				DeprecationReason: GetTagValue(currentField, "deprecationReason"),
+				Description:       GetTagValue(currentField, "description"),
 			}
 		}
 	}
@@ -66,20 +66,20 @@ func GetFieldType(object reflect.StructField) graphql.Output {
 
 	objectType := object.Type
 	if objectType.Kind() == reflect.Struct {
-		return convertStructToObject(objectType)
+		return ConvertStructToObject(objectType)
 
 	} else if objectType.Kind() == reflect.Slice &&
 		objectType.Elem().Kind() == reflect.Struct {
 
-		elemType := convertStructToObject(objectType.Elem())
+		elemType := ConvertStructToObject(objectType.Elem())
 		return graphql.NewList(elemType)
 
 	} else if objectType.Kind() == reflect.Slice {
-		elemType, _ := convertSimpleType(objectType.Elem())
+		elemType, _ := ConvertSimpleType(objectType.Elem())
 		return graphql.NewList(elemType)
 	}
 
-	output, _ := convertSimpleType(objectType)
+	output, _ := ConvertSimpleType(objectType)
 	return output
 }
 
