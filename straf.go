@@ -42,8 +42,8 @@ func ConvertStruct(objectType reflect.Type) graphql.Fields {
 
 	for i := 0; i < objectType.NumField(); i++ {
 		currentField := objectType.Field(i)
-		fieldType := GetFieldType(currentField)
 		if GetTagValue(currentField, "exclude") != "true" {
+			fieldType := GetFieldType(currentField)
 			fields[currentField.Name] = &graphql.Field{
 				Name:              currentField.Name,
 				Type:              fieldType,
