@@ -86,10 +86,10 @@ func GetArgs(object interface{}) graphql.FieldConfigArgument {
 		identifier, ok := currentField.Tag.Lookup("isArg")
 
 		if identifier == "true" && ok {
-			fieldType := getFieldType(currentField)
+			fieldType := GetFieldType(currentField)
 			output[currentField.Name] = &graphql.ArgumentConfig{
 				Type:        fieldType,
-				Description: getTagValue(currentField, "description"),
+				Description: GetTagValue(currentField, "description"),
 			}
 
 		}
