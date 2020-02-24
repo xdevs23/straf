@@ -48,7 +48,7 @@ func (schemaBuilder *SchemaBuilder) Init() {
 
 //AddArgumentsFromStruct is used to add arguments from a struct
 func (schemaBuilder *SchemaBuilder) AddArgumentsFromStruct(object interface{}) {
-	for key, value := range getArgs(object) {
+	for key, value := range GetArgs(object) {
 		schemaBuilder.args[key] = value
 	}
 }
