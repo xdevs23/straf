@@ -77,7 +77,7 @@ func (schemaBuilder *SchemaBuilder) AddFunction(
 	}
 }
 
-func getArgs(object interface{}) graphql.FieldConfigArgument {
+func GetArgs(object interface{}) graphql.FieldConfigArgument {
 	objectType := reflect.TypeOf(object)
 	output := graphql.FieldConfigArgument{}
 
